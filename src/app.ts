@@ -3,7 +3,6 @@ import cors from "cors";
 import connectToDatabase from "./db/dal";
 import categoryRoutes from "./routes/category-routs";
 import productRoutes from "./routes/product-routes";
-import { Product } from "./models/Product.model";
 
 const PORT = 5000;
 

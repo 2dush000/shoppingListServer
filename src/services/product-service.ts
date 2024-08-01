@@ -8,10 +8,8 @@ async function addProduct(req: Request, res: Response) {
   }
 
   try {
-    // Create a new Product document
     const newProduct = new Product({ name, quantity, category });
 
-    // Save the Product to the database
     await newProduct.save();
 
     return res.status(201).json(newProduct);
@@ -47,7 +45,6 @@ async function getProduct(req: Request, res: Response) {
 }
 
 async function updateProduct(req: Request, res: Response) {
-  // const { id } = req.params;
   const { _id, name, quantity, category } = req.body;
 
   if (!(name || quantity || category)) {
@@ -114,11 +111,11 @@ async function getProductsByCategories(req: Request, res: Response) {
               quantity: "$quantity",
             },
           },
-          productCount: { $sum: 1 }, // Count the number of products in each category
+          productCount: { $sum: 1 },
         },
       },
       {
-        $sort: { productCount: -1 }, // Sort categories by the number of products in descending order
+        $sort: { productCount: -1 },
       },
       {
         $project: {
@@ -126,7 +123,7 @@ async function getProductsByCategories(req: Request, res: Response) {
           categoryId: "$_id",
           categoryName: 1,
           products: 1,
-          productCount: 1, // Include the product count in the output if needed
+          productCount: 1,
         },
       },
     ]);
